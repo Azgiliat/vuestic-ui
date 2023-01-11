@@ -128,6 +128,16 @@
         </div>
       </template>
     </div>
+    <div class="va-slider__pins-labels-container" v-if="pinsLabels">
+      <div
+        v-for="(pin, i) in pinsCol"
+        :key="i"
+        class="va-slider__pin-label"
+        :style="getPinLabelsStyles(pin)"
+      >
+        {{pinsLabels(pin)}}
+      </div>
+    </div>
     <span
       v-if="vertical ? iconPrepend : iconAppend"
       class="va-input__label--inverse"
@@ -167,7 +177,7 @@ import { useComponentPresetProp, useColors, useArrayRefs, useBem } from '../../c
 import { validateSlider } from './validateSlider'
 
 import { VaIcon } from '../va-icon'
-
+type PinLabel = (value: string) => string
 export default defineComponent({
   name: 'VaSlider',
   components: { VaIcon },
@@ -189,6 +199,7 @@ export default defineComponent({
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     pins: { type: Boolean, default: false },
+    pinsLabels: { type: Function as PropType<PinLabel> },
     iconPrepend: { type: String, default: '' },
     iconAppend: { type: String, default: '' },
     vertical: { type: Boolean, default: false },
@@ -226,6 +237,7 @@ export default defineComponent({
       active: isFocused.value,
       horizontal: !props.vertical,
       grabbing: hasMouseDown.value,
+      labels: !!props.pinsLabels,
     }))
 
     const dotClass = useBem('va-slider__handler', () => ({
@@ -538,6 +550,9 @@ export default defineComponent({
       [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
       transition: hasMouseDown.value ? 'none' : 'var(--va-slider-pin-transition)',
     })
+    const getPinLabelsStyles = (pin: number) => ({
+      [pinPositionStyle.value]: `${pin * pinPositionStep.value}%`,
+    })
 
     const getPos = (e: MouseEvent | Touch) => {
       getStaticData()
@@ -739,6 +754,7 @@ export default defineComponent({
       labelStyles,
       processedStyles,
       getPinStyles,
+      getPinLabelsStyles,
       dottedStyles,
       getDottedStyles,
       clickOnContainer,
@@ -776,6 +792,18 @@ export default defineComponent({
     display: flex;
     align-items: center;
     cursor: grab;
+  }
+
+  &__pins-labels-container {
+    width: 100%;
+    height: 1.5rem;
+    position: relative;
+    display: flex;
+  }
+
+  &__pin-label {
+    position: absolute;
+    transform: translateX(-50%);
   }
 
   &__track {
@@ -863,6 +891,11 @@ export default defineComponent({
     .va-slider__container {
       cursor: default;
     }
+  }
+
+  &--labels {
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 

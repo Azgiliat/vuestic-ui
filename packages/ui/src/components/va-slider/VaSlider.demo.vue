@@ -412,6 +412,7 @@
         pins
         :step="10"
         v-model="value2"
+        :pins-labels="value => value * 2"
       />
     </VbCard>
     <VbCard
