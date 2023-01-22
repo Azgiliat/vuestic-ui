@@ -415,6 +415,16 @@
         :pins-labels="value => value * 2"
       />
     </VbCard>
+    <VbCard title="vertical woth pnis labels" width="500px" height="350px">
+      <va-slider
+        style="height: 300px; margin-right: 1rem;"
+        pins
+        vertical
+        :step="10"
+        :pins-labels="value => value * 2"
+        v-model="value"
+      />
+    </VbCard>
     <VbCard
       width="500px"
       title="Colorful Range"

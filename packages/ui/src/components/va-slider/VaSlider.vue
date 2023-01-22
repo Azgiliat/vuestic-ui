@@ -794,16 +794,8 @@ export default defineComponent({
     cursor: grab;
   }
 
-  &__pins-labels-container {
-    width: 100%;
-    height: 1.5rem;
-    position: relative;
-    display: flex;
-  }
-
   &__pin-label {
     position: absolute;
-    transform: translateX(-50%);
   }
 
   &__track {
@@ -940,6 +932,17 @@ export default defineComponent({
         left: var(--va-slider-horizontal-dot-value-left);
       }
     }
+
+    &__pins-labels-container {
+      width: 100%;
+      height: 1.5rem;
+      position: relative;
+      display: flex;
+    }
+
+    &__pin-label {
+      transform: translateX(-50%);
+    }
   }
 
   .va-input__label {
@@ -956,6 +959,7 @@ export default defineComponent({
   padding: var(--va-slider-vertical-padding);
   flex-direction: var(--va-slider-vertical-flex-direction);
   align-items: var(--va-slider-vertical-align-items);
+  align-content: center;
 
   .va-input__label {
     margin-bottom: var(--va-slider-vertical-label-margin-bottom);
@@ -982,7 +986,8 @@ export default defineComponent({
 
     &__container {
       height: 100%;
-      width: 0.5rem;
+      width: 1.5rem;
+      justify-content: center;
     }
 
     &__track {
@@ -995,7 +1000,6 @@ export default defineComponent({
       position: absolute;
       width: 0.75rem;
       height: 0.125rem;
-      left: -2px;
     }
 
     &__handler {
@@ -1010,6 +1014,17 @@ export default defineComponent({
         top: var(--va-slider-vertical-dot-value-top);
         left: var(--va-slider-vertical-dot-value-left);
       }
+    }
+
+    &__pins-labels-container {
+      width: 1.5rem;
+      height: 100%;
+      position: relative;
+      display: flex;
+    }
+
+    &__pin-label {
+      transform: translateY(50%);
     }
   }
 }
